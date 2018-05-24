@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>play with ajax</title>
+</head>
+<body>
+    <div id="images">
+        Loading ..
+    </div>
+    
+    <label for="number">Limit:</label>
+    <input type="number" id="number" min="1" max="100">
+    <label for="category">Category:</label>
+    <select id="category">
+            <option value="all">All</option>
+            <option value="pics">Pics</option>
+            <option value="cats">Cats</option>
+    </select>
+    <button onclick="getImages()">Get images</button>
+    
+    <style type="text/css">
+        #images img {
+            height: 50px;
+            margin: 3px;
+        }
+    </style>
+ 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+ 
+    <script type="text/javascript">
+        var get = function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+ 
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != xhr.DONE) return;
+ 
+                var status = xhr.status;
+                var headers = xhr.getAllResponseHeaders();
+                var text = xhr.responseText;
+ 
+                callback(status, headers, text);
+            }
+ 
+            xhr.send();
+        }
+ 
+        var appendImage = function (url) {
+            var imgEl = document.createElement('img');
+            // <img />
+ 
+            imgEl.src = url;
+            // <img src="{url}" />
+ 
+            imgEl.onerror = function () {
+                // when image loading failed
+                // @todo hide image
+                imgEl.style.display = "none";
+                console.log('error loading image!')
+            }
+ 
+            document.getElementById('images').appendChild(imgEl);
+        }
+ 
+        // getImages({limit: 5})
+        // getImages({})
+        // getImages() -- by default should take 100 images
+ 
+        // getImages({limit: 5, category: "cats"})
+        // getImages({category: "cats"})
+        // getImages()
+ 
+        // "S"OLID, S -> Single Responsibility
+        var limitInput = document.getElementById('number');
+        var selectInput = document.getElementById('category');
+
+        var getImages = function (params) {
+            //
+            var limitInputVal = limitInput.value;
+            var selectInputVal = selectInput.value;
+            
+            params = {};
+            params.limit = limitInput.value;
+            params.category = selectInput.value;
+
+            var url;
+            const defaultLimit = 100;
+            if(!params){
+                url = 'https://www.reddit.com/r/pics.json?limit=' + defaultLimit;
+            }else{
+            if(!params.category){
+                 // @todo: use here params.limit
+                url = 'https://www.reddit.com/r/pics.json?limit=' + params.limit;
+            }else if(!params.limit){
+                url ='https://www.reddit.com/r/pics/search.json?q=' + params.category;
+                url += '&limit=' + defaultLimit;
+            }else{
+                url = 'https://www.reddit.com/r/pics/search.json?q=' + params.category;
+                url += '&limit=' + params.limit;
+            }
+            
+                
+ }
+ 
+            get(url, function (status, headers, body) {
+                var response = JSON.parse(body);
+ 
+                _.each(response.data.children, function (child) {
+                    var url = child.data.url;
+ 
+                    appendImage(url);
+ 
+                    console.log('ITEM!', child.data.url);
+                });
+ 
+            });
+        }
+ 
+    </script>
+ 
+</body>
+</html>
