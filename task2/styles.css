@@ -1,0 +1,71 @@
+body{
+    background: url(back-img.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:100%;
+}
+
+.main{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:40%;
+    margin:70px auto;
+    background: rgba(255, 255, 255, 0.76);  
+    padding-top:15px;
+    padding-bottom:10px;
+    padding-left:30px;
+    padding-right:30px;
+}
+
+hr{
+    border: 0.5px solid rgba(0, 0, 0, 0.315);
+    width: 350px;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.buttons{
+    display:flex;
+    flex-direction: row;
+    padding-top:10px;
+}
+
+.btn{
+    margin:10px;
+}
+
+.visible{
+    display: flex;
+}
+
+p{
+    font-size:20px;
+}
+
+#temp{
+    padding-top: 10px;
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+
+#cityName{
+    font-size:50px;
+}
+
+#weather-condition{
+    padding-bottom:10px;
+}
+
+.from-to{
+    display:flex;
+    flex-direction: row;
+}
+
+#max{
+   margin-right: 10px;
+}
+
+#min{
+    margin-left: 10px;
+ }
