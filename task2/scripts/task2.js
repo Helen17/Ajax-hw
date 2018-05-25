@@ -101,7 +101,6 @@ function getTodayWeather(darkskyAPI){
         url : darkskyAPI, 
         dataType: "jsonp",
         success: function( response ) {
-            console.log(response);
             var temperature = response.currently.temperature;
             var summary = response.currently.summary;
             var windSpeed = response.currently.windSpeed;
@@ -126,8 +125,6 @@ function getNextDayWeather(darkskyAPI){
         url : darkskyAPI, 
         dataType: "jsonp",
         success: function( response ) {
-            console.log(response);
-
             var summary = response.daily.data[0].summary;
             var windSpeed = response.daily.data[0].windSpeed;
             var pressure = response.daily.data[0].pressure;
