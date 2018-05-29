@@ -152,7 +152,7 @@ function convert(far){
 function getCurrentDate(timestamp,i){
     var today = new Date(timestamp*1000);
     var yyyy = today.getFullYear();
-	var mm = ('0' + (today.getMonth() + 1)).slice(-2);
+    var mm = ('0' + (today.getMonth() + 1)).slice(-2);
     var dd = +('0' + today.getDate()).slice(-2);
 
     dd = dd + i;
